@@ -1,0 +1,80 @@
+apply plugin: 'liquibase'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    
+    dependencies {
+    classpath 'org.liquibase:liquibase-core:3.4.1'
+    classpath "org.liquibase:liquibase-gradle-plugin:1.1.1"
+	classpath 'org.postgresql:postgresql:42.2.6'
+    }
+}
+
+def changeLog = "$projectDir/src/main/db/changelog.xml"
+
+
+tasks.addRule("Pattern: gdpr<ENV>") { String taskName ->
+	if (taskName.startsWith("gdpr")) {
+		task(taskName) {
+			liquibase {
+				activities {
+					doLast {
+						changeLogFile changeLog
+						url 'jdbc:postgresql://localhost:5432/'+ taskName
+						username 'postgres'
+						password 'postgres'
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/*task('gdprdev') {
+	println "executing dev"
+
+	liquibase {
+	    activities {
+			doLast {
+	            changeLogFile changeLog
+	            url 'jdbc:postgresql://localhost:5432/gdprtest'
+	            username 'postgres'
+	            password 'postgres'
+	        }
+	    }
+	}    
+}*/
+
+/*task('gdprqa')  {
+	println "executing qa"
+
+	liquibase {
+	    activities {
+			doLast {
+	            changeLogFile changeLog
+				url 'jdbc:postgresql://localhost:5432/gdprqa'
+	            username 'postgres'
+	            password 'postgres'
+	        }
+	    }
+	}    
+}*/
+
+/*task('prod') {
+	println "executing prod"
+
+	liquibase {
+	    activities {
+			doLast {
+	            changeLogFile changeLog
+				url 'jdbc:postgresql://localhost:5432/gdprprod'
+	            username 'postgres'
+	            password 'postgres'
+	        }
+	    }
+	}    
+}*/
+
