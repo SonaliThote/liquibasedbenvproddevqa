@@ -1,11 +1,8 @@
-#Liquibase Sandbox
-- IDs cannot be repeated, otherwise they will not run
-- Scripts should be smalls
-- Should be added script Rollback whenever possible
-- Must be added new scripts on the changelog.xml
-- Everything that was executed is registered on table DATABASECHANGELOG
-- Documentation http://www.liquibase.org/documentation/index.html
+#Liquibase Env - Dev Qa Prod
 - To execute:
-	* <b>gradle task dev update</b>
-	* <b>gradle task qa update</b>
-	* <b>gradle task prod update</b>	
+- DataBase Name = gdprTest
+	* <b>gradle task gdprTest update</b>
+- DataBase Name = gdprQa
+	* <b>gradle task gdprQa update</b>
+- DataBase Name = gdprProd
+	* <b>gradle task gdprprod update</b>	
